@@ -1,0 +1,5 @@
+#!/bin/sh
+OLD_PWD=$PWD
+cd `echo $PWD | sed -r "s;($HOME)(/sites/)([^/]+)(.*);\1\2\3;"`
+./symfony doctrine:build --all --no-confirmation
+cd $OLD_PWD

@@ -1,0 +1,7 @@
+#!/bin/sh
+OLD_PWD=$PWD
+NEW_PWD=`echo $PWD | sed -r "s;($HOME)(/sites/)([^/]+)(.*);\1\2\3;"`
+cd $NEW_PWD
+./symfony cc
+rm $NEW_PWD/cache/* -rf
+cd $OLD_PWD
