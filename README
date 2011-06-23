@@ -1,10 +1,16 @@
 Quick howto:
 
-cd ~
-git clone git://github.com/mattx86/symfony-aliases.git
-mkdir tools
-ln -s symfony-aliases/* tools/
-export PATH="$HOME/tools;$PATH"
 
-cd sites/projectA/config
-scc  # equivalent of: cd .. ; ./symfony cc ; cd config
+  SETUP PROCESS
+
+    cd ~
+    git clone git://github.com/mattx86/symfony-aliases.git
+    mkdir tools
+    ln -s symfony-aliases/* tools/
+    nano tools/.symfony-projects.inc.sh  # edit config
+    export PATH="$HOME/tools;$PATH"
+
+  USAGE EXAMPLE
+
+    cd sites/projectA/config
+    scc  # equivalent of: cd .. ; ./symfony cc ; cd config
