@@ -1,6 +1,7 @@
 #!/bin/sh
-OLD_PWD=$PWD
-cd `echo $PWD | sed -r "s;($HOME)(/sites/)([^/]+)(.*);\1\2\3;"`
+. ${0%/*}/.symfony-projects.inc.sh
+
+cd $NEW_PWD
 ./symfony doctrine:build --all --and-load --no-confirmation
-~/tools/scc
+${0%/*}/scc
 cd $OLD_PWD

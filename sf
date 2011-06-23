@@ -1,6 +1,6 @@
 #!/bin/sh
-OLD_PWD=$PWD
-NEW_PWD=`echo $PWD | sed -r "s;($HOME)(/sites/)([^/]+)(.*);\1\2\3;"`
+. ${0%/*}/symfony-projects.inc.sh
+
 cd $NEW_PWD
 ./symfony $*
 cd $OLD_PWD
