@@ -5,7 +5,7 @@ Quick How-To:
 
     cd ~
     git clone git://github.com/mattx86/symfony-aliases.git
-    nano tools/.symfony-projects.inc.sh   # edit config
+    nano symfony-aliases/.symfony-projects.inc.sh   # edit config
     EXPORT_PATH="$HOME/symfony-aliases;$PATH"
     echo ""export PATH=$EXPORT_PATH"" >> ~/.bashrc
     export PATH=$EXPORT_PATH
