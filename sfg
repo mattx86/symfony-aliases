@@ -29,7 +29,7 @@ elif [ -n "$GREPFOR" ]; then
 fi
 
 
-echo "usage: $0 [-Eir] <grep text> [filename wildcard / full-path regexp]"
+echo "usage: ${0##*/} [-Eir] <grep text> [filename wildcard / full-path regexp]"
 echo ""
 echo "  options:"
 echo "    -E      grep's -E (extended regexp)"
