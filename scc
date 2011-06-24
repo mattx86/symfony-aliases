@@ -1,7 +1,5 @@
 #!/bin/sh
 . ${0%/*}/.symfony-projects.inc.sh
 
-cd $NEW_PWD
 ./symfony cc
-rm $NEW_PWD/cache/* -rf
-cd $OLD_PWD
+rm "$SF_PROJECT_PATH"/cache/* -rf

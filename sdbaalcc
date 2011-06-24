@@ -1,7 +1,5 @@
 #!/bin/sh
 . ${0%/*}/.symfony-projects.inc.sh
 
-cd $NEW_PWD
 ./symfony doctrine:build --all --and-load --no-confirmation
 ${0%/*}/scc
-cd $OLD_PWD

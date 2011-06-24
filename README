@@ -1,14 +1,14 @@
-Quick howto:
+Quick How-To:
 
 
   SETUP PROCESS
 
     cd ~
     git clone git://github.com/mattx86/symfony-aliases.git
-    mkdir tools
-    ln -s symfony-aliases/* tools/
-    nano tools/.symfony-projects.inc.sh  # edit config
-    export PATH="$HOME/tools;$PATH"
+    nano tools/.symfony-projects.inc.sh   # edit config
+    EXPORT_PATH="$HOME/symfony-aliases;$PATH"
+    echo ""export PATH=$EXPORT_PATH"" >> ~/.bashrc
+    export PATH=$EXPORT_PATH
 
   USAGE EXAMPLE
 

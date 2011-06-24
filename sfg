@@ -1,42 +1,39 @@
 #!/bin/sh
-OLD_PWD=$PWD
-NEW_PWD=`echo $PWD | sed -r "s;($HOME)(/sites/)([^/]+)(.*);\1\2\3;"`
+. ${0%/*}/symfony-projects.inc.sh
 
 GREPEXTOPT=""
-while getopts "Ei" opt; do
-	case $opt in
-		E) GREPEXTOPT="${GREPEXTOPT}E";;
-		i) GREPEXTOPT="${GREPEXTOPT}i";;
-		*) echo "usage: $0 [options] <grep text> [file path regex]";;
-	esac
+FINDMETHOD="-iname"
+while getopts "Eir" opt; do
+case $opt in
+  E) GREPEXTOPT="${GREPEXTOPT}E";;
+  i) GREPEXTOPT="${GREPEXTOPT}i";;
+  r) FINDMETHOD="-iregex";;
+esac
 done
+shift $(( $OPTIND - 1))
 
-if [ -z "$GREPEXTOPT" ]; then
-	# sfg <grep text> [path regex]
-	GREPTEXT="$1"
-	if [ -n "$2" ]; then
-		GREPREGEX="$2"
-	fi
-else
-	# sfg <options> <grep text> [path regex]
-	GREPTEXT="$2"
-	if [ -n "$3" ]; then
-		GREPREGEX="$3"
-	fi
+GREPFOR="$1"
+if [ -n "$2" ]; then
+	FINDWHAT="$2"
 fi
 
-
-cd $NEW_PWD
-if [ -n "$GREPREGEX" ]; then
-	# user specified file/path regex
-	GREPOPT="-Hn${GREPEXTOPT}"
-	find . -type f -iname "$GREPREGEX" | xargs grep --color=always "$GREPOPT" "$GREPTEXT"
-elif [ -n "$GREPTEXT" ]; then
+if [ -n "$FINDWHAT" ]; then
+	# user specified filename wildcard or full-path regexp
+	GREPOPT="--color=always -Hn${GREPEXTOPT}"
+	return find . -type f $FINDMETHOD "$FINDWHAT" | \
+		xargs grep "$GREPOPT" "$GREPFOR"
+elif [ -n "$GREPFOR" ]; then
 	# user is only grepping for the text
-	GREPOPT="-rHn${GREPEXTOPT}"
-	grep "$GREPOPT" --color=always ""$GREPTEXT"" .
-else
-	echo "usage: $0 [<options>] <grep text> [<file path regex>]"
+	GREPOPT="--color=always -rHn${GREPEXTOPT}"
+	return grep "$GREPOPT" "$GREPFOR" .
 fi
-cd $OLD_PWD
 
+
+echo "usage: $0 [-Eir] <grep text> [filename wildcard / full-path regexp]"
+echo ""
+echo "  options:"
+echo "    -E      grep's -E (extended regexp)"
+echo "    -i      grep's -i (case-insensitive)"
+echo "    -r      find's -iregex (case-insensitive full-path regexp)"
+echo "            defaults to -iname (case-insensitive filename wildcards)"
+echo ""
