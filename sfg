@@ -20,13 +20,18 @@ fi
 if [ -n "$FINDWHAT" ]; then
 	# user specified filename wildcard or full-path regexp
 	GREPOPT="--color=always -Hn${GREPEXTOPT}"
-	find . -type f $FINDMETHOD "$FINDWHAT" | \
-		xargs grep "$GREPOPT" "$GREPFOR"
+	find ./ -path './log/' -prune \
+		-path './cache/' -prune \
+		-type f $FINDMETHOD "$FINDWHAT" | \
+			xargs grep "$GREPOPT" "$GREPFOR"
 	exit $?
 elif [ -n "$GREPFOR" ]; then
 	# user is only grepping for the text
 	GREPOPT="--color=always -rHn${GREPEXTOPT}"
-	grep "$GREPOPT" "$GREPFOR" .
+	find ./ -path './log/' -prune \
+		-path './cache/' -prune \
+		-type f | \
+		grep "$GREPOPT" "$GREPFOR" ./
 	exit $?
 fi
 
