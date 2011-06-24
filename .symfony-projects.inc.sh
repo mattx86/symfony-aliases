@@ -6,6 +6,11 @@ PATH_TO_SF_PROJECTS="$HOME/sites/"	# keep trailing slash
 
 ### Do not touch beyond this line:
 ##
+# Capture the current working directory.
+#
+OLD_PWD="$PWD"
+
+##
 # The current $PWD is transformed into "$PATH_TO_SF_PROJECTS/<project dir>".
 #
 SF_PROJECT_PATH="$(echo "$PWD" | sed -r "s;("$PATH_TO_SF_PROJECTS")([^/]+)(.*);\1\2;")"

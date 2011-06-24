@@ -1,5 +1,6 @@
 #!/bin/sh
 . ${0%/*}/.symfony-projects.inc.sh
+cd $OLD_PWD
 
 GREPEXTOPT=""
 FINDMETHOD="-iname"
@@ -20,7 +21,7 @@ fi
 if [ -n "$FINDWHAT" ]; then
 	# user specified filename wildcard or full-path regexp
 	GREPOPT="--color=always -Hn${GREPEXTOPT}"
-	find ./ -path './log/' -prune \
+	find "$SF_PROJECT_PATH" -path './log/' -prune \
 		-path './cache/' -prune \
 		-type f $FINDMETHOD "$FINDWHAT" | \
 			xargs grep "$GREPOPT" "$GREPFOR"
@@ -28,7 +29,7 @@ if [ -n "$FINDWHAT" ]; then
 elif [ -n "$GREPFOR" ]; then
 	# user is only grepping for the text
 	GREPOPT="--color=always -rHn${GREPEXTOPT}"
-	find ./ -path './log/' -prune \
+	find "$SF_PROJECT_PATH" -path './log/' -prune \
 		-path './cache/' -prune \
 		-type f | \
 		grep "$GREPOPT" "$GREPFOR" ./
